@@ -2,21 +2,20 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "module": "commonjs",
-    "target": "ES5",
+    "target": "ES2020",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
     "lib": [
       "dom",
-      "es2017",
-      "es5"
+      "ES2020"
     ],
     "moduleResolution": "node"
   },
   "files": [
-    "Angular5-csv.ts",
-    "Angular5-csv.spec.ts",
+    "AngularCsv.ts",
+    "AngularCsv.spec.ts",
     "custom.d.ts"
   ],
   "exclude": [
