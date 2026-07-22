@@ -1,6 +1,9 @@
-/* tslint:disable:no-unused-variable */
-
 import {Angular5Csv, CsvConfigConsts} from './Angular5-csv';
+
+beforeAll(() => {
+    global.URL.createObjectURL = jest.fn(() => 'blob:mock');
+    global.URL.revokeObjectURL = jest.fn();
+});
 
 describe('Component: Angular2Csv', () => {
 
@@ -37,7 +40,7 @@ describe('Component: Angular2Csv', () => {
         let component = new Angular5Csv([{name: 'test', age: 20}], 'My Report', {useBom: false, quoteStrings: '|'});
         let csv = component['csv'];
         let first_row = csv.split(CsvConfigConsts.EOL)[0].split(',');
-        expect(first_row[0]).toMatch('\\|.*\\|');
+        expect(first_row[0]).toMatch(/\|.*\|/);
     });
 
     it('should return csv file with correct header labels', () => {
