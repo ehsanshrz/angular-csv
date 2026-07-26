@@ -1,6 +1,6 @@
 {
   "name": "angular-csv",
-  "version": "0.3.0",
+  "version": "1.0.5",
   "description": "Helper library for creating CSV files in Angular",
   "repository": {
     "type": "git",
@@ -27,14 +27,18 @@
     {
       "name": "Davor Peic - Krushka Design",
       "email": "info@krushka.mx"
+    },
+    {
+      "name": "rob-moore",
+      "account": "https://github.com/rob-moore"
     }
   ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ehsanshrz/angular-csv/issues"
   },
-  "main": "./dist/Angular5-csv.js",
-  "typings": "./dist/Angular5-csv.d.ts",
+  "main": "./dist/Angular-csv.js",
+  "typings": "./dist/Angular-csv.d.ts",
   "homepage": "https://github.com/ehsanshrz/angular-csv#readme",
   "jest": {
     "preset": "ts-jest",
@@ -44,10 +48,10 @@
     ]
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "ts-jest": "^29.4.11",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "ts-jest": "^29.4.12",
     "typescript": "^5.9.3"
   }
 }
