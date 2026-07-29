@@ -2,7 +2,7 @@ var configuration = {
     frameworks: ["jasmine", "karma-typescript"],
 
     files: [
-        'Angular5-csv.spec.ts'
+        'Angular-csv.spec.ts'
     ],
 
     preprocessors: {
@@ -26,9 +26,6 @@ var configuration = {
     browsers: ["ChromeHeadlessNoSandbox"]
 };
 
-
 module.exports = function (config) {
     config.set(configuration);
 };
-
-
