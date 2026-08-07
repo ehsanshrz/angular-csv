@@ -4,10 +4,11 @@
 
 [![npm version](https://badge.fury.io/js/angular-csv.svg)](https://badge.fury.io/js/angular-csv)
 [![GitHub license](https://img.shields.io/github/license/ehsanshrz/angular-csv.svg)](https://github.com/ehsanshrz/angular-csv)
-![Angular](https://img.shields.io/badge/Angular-%3E%3D14.0-red.svg)
+![Angular](https://img.shields.io/badge/Angular-%3E%3D17.0-red.svg)
+![Node](https://img.shields.io/badge/Node-%3E%3D20.0-green.svg)
 ![npm](https://img.shields.io/npm/dm/angular-csv.svg)
 
-> A helper library for creating CSV files in Angular.
+> A helper library for creating and downloading CSV files in Angular.
 
 ## Installation
 
@@ -17,12 +18,12 @@ npm install --save angular-csv
 
 ## Example
 
-```javascript
+```typescript
 import { AngularCsv } from 'angular-csv/dist/Angular-csv';
 
-var data = [
+const data = [
   {
-    name: "Test 1",
+    name: 'Test 1',
     age: 13,
     average: 8.2,
     approved: true,
@@ -40,42 +41,52 @@ var data = [
 new AngularCsv(data, 'My Report');
 ```
 
-## API | **AngularCsv(data, filename, options)**
+## API | **AngularCsv(data, filename, options?)**
 
-| Option        | Default           | Description  |
-| :------------- |:-------------:| -----|
-| **fieldSeparator**      | , | Defines the field separator character |
-| **quoteStrings**      | "      | If provided, will use this characters to "escape" fields, otherwise will use double quotes as default |
-| **decimalseparator** | .      | Defines the decimal separator character (default is .). If set to "locale", it uses the [language sensitive representation of the number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString).|
-| **showLabels** | false      | If provided, would use this attribute to create a header row |
-| **showTitle** | false      |   |
-| **title** | 'My Report'      | Title of the CSV file, shown when `showTitle` is true |
-| **useBom** | true      | If true, adds a BOM character at the start of the CSV |
-| **useHeader** | false      | If true, only fields listed in `headers` will be exported |
-| **useObjHeader** | false      | If true, uses `objHeader` keys as export order and values as labels |
-| **noDownload** | false      | If true, disables automatic download and returns only formatted CSV |
-| **headers** | []      | Array of column header labels |
-| **objHeader** | {}      | Object map of data keys to custom labels |
-| **nullToEmptyString** | false      | If true, all null values will be changed to empty strings |
+| Option | Default | Description |
+| :--- | :---: | --- |
+| **fieldSeparator** | `,` | Defines the field separator character |
+| **quoteStrings** | `"` | Character used to quote string fields |
+| **decimalseparator** | `.` | Defines the decimal separator character. Set to `"locale"` to use the [locale-sensitive representation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString) |
+| **showLabels** | `false` | When `true`, uses `headers` to create a header row |
+| **showTitle** | `false` | When `true`, adds the `title` as the first line |
+| **title** | `'My Report'` | Title shown at the top of the file when `showTitle` is `true` |
+| **useBom** | `true` | Prepends a BOM character (`\ufeff`) to improve Excel compatibility |
+| **useHeader** | `false` | When `true`, only fields whose keys are listed in `headers` are exported |
+| **useObjHeader** | `false` | When `true`, uses `objHeader` keys as export order and values as column labels |
+| **noDownload** | `false` | When `true`, disables automatic download and returns the formatted CSV string instead |
+| **headers** | `[]` | Array of column header labels (or field keys when `useHeader` is `true`) |
+| **objHeader** | `{}` | Object map of data keys to custom column labels, also controls export order |
+| **nullToEmptyString** | `false` | When `true`, converts `null` values to empty strings |
 
 ## Options Example
 
-```javascript
-var options = {
+```typescript
+const options = {
   fieldSeparator: ',',
   quoteStrings: '"',
   decimalseparator: '.',
   showLabels: true,
   showTitle: true,
-  title: 'Your title',
+  title: 'Your Title',
   useBom: true,
-  noDownload: true,
-  headers: ["First Name", "Last Name", "ID"],
+  noDownload: false,
+  headers: ['First Name', 'Last Name', 'ID'],
   useHeader: false,
   nullToEmptyString: true,
 };
 
-new AngularCsv(data, filename, options);
+new AngularCsv(data, 'filename', options);
+```
+
+## Retrieving the CSV String
+
+Pass `noDownload: true` to suppress the automatic download and get the raw CSV back:
+
+```typescript
+const options = { noDownload: true };
+const csv = new AngularCsv(data, 'My Report', options).getCsvData();
+console.log(csv);
 ```
 
 ## Credits
