@@ -8,7 +8,7 @@ export interface Options {
     title: string;
     useBom: boolean;
     headers: string[];
-    objHeader: any;
+    objHeader: Record<string, string>;
     noDownload: boolean;
     useObjHeader: boolean;
     useHeader: boolean;
@@ -56,8 +56,8 @@ export const ConfigDefaults: Options = {
 
 export class AngularCsv {
 
-    public fileName: string;
-    public labels: Array<String>;
+    public fileName: string = '';
+    public labels: Array<string> = [];
     public data: any[];
 
     private _options: Options;
@@ -68,11 +68,8 @@ export class AngularCsv {
 
         this.data = typeof DataJSON != 'object' ? JSON.parse(DataJSON) : DataJSON;
 
-        this._options = objectAssign({}, ConfigDefaults, config);
-
-        if (this._options.filename) {
-            this._options.filename = filename;
-        }
+        this._options = Object.assign({}, ConfigDefaults, config);
+        this._options.filename = filename;
 
         this.generateCsv();
     }
@@ -232,49 +229,4 @@ export class AngularCsv {
     static isFloat(input: any) {
         return +input === input && (!isFinite(input) || Boolean(input % 1));
     }
-}
-
-let hasOwnProperty = Object.prototype.hasOwnProperty;
-let propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-/**
- * Convet to Object
- * @param {any} val
- */
-function toObject(val: any) {
-    if (val === null || val === undefined) {
-        throw new TypeError('Object.assign cannot be called with null or undefined');
-    }
-    return Object(val);
-}
-
-/**
- * Assign data  to new Object
- * @param {any}   target
- * @param {any[]} ...source
- */
-function objectAssign(target: any, ...source: any[]) {
-    let from: any;
-    let to = toObject(target);
-    let symbols: any;
-
-    for (let s = 1; s < arguments.length; s++) {
-        from = Object(arguments[s]);
-
-        for (const key in from) {
-            if (hasOwnProperty.call(from, key)) {
-                to[key] = from[key];
-            }
-        }
-
-        if ((<any>Object).getOwnPropertySymbols) {
-            symbols = (<any>Object).getOwnPropertySymbols(from);
-            for (let i = 0; i < symbols.length; i++) {
-                if (propIsEnumerable.call(from, symbols[i])) {
-                    to[symbols[i]] = from[symbols[i]];
-                }
-            }
-        }
-    }
-    return to;
 }
